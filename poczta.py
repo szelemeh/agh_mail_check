@@ -18,5 +18,5 @@ if size >= 1:
         title += "s."
     else:
         title += "."
-    toaster.show_toast(title, "At shelest@student.agh.edu.pl")
+    toaster.show_toast(title, f"At {username}")
     exit()

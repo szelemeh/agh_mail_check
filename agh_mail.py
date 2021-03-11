@@ -7,9 +7,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.chrome.options import Options
 from time import sleep
-
+import sys
 BASE_URL = "https://poczta.agh.edu.pl"
-CHROME_PROFILE_PATH = "C:\\Users\\subza\\AppData\\Local\\Google\\Chrome\\User Data\\Default"
 
 
 def _get_web_driver() -> WebDriver:
@@ -18,10 +17,14 @@ def _get_web_driver() -> WebDriver:
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
-    # chrome_options.add_argument(f"--user-data-dir={CHROME_PROFILE_PATH}")
 
-    return webdriver.Chrome(
-        executable_path="drivers/chromedriver.exe", options=chrome_options)
+    print(sys.argv[0])
+    try:
+        web = webdriver.Chrome(
+            executable_path="drivers/chromedriver.exe", options=chrome_options)
+    except Exception as err:
+        print(err)
+    return web
 
 
 class AghMail:
@@ -39,7 +42,6 @@ class AghMail:
         pwd_field = driver.find_element_by_id("rcmloginpwd")
         submit_button = driver.find_element_by_id("rcmloginsubmit")
 
-        sleep(3)
         name_field.send_keys(self.uname)
         pwd_field.send_keys(self.pwd)
         submit_button.send_keys(Keys.RETURN)
