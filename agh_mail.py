@@ -22,11 +22,11 @@ def _get_web_driver() -> WebDriver:
     try:
         web = webdriver.Chrome(
             executable_path="drivers/chromedriver.exe", options=chrome_options)
+        return web
     except Exception as err:
         print(err)
-    return web
-
-
+        return None
+    
 class AghMail:
 
     def __init__(self, uname, pwd):
