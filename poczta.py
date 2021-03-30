@@ -1,11 +1,11 @@
 import os
-if os.name != "posix":
+if os.name == "nt":
     from win10toast import ToastNotifier
 
     def notify(title, message):
         toaster = ToastNotifier()
         toaster.show_toast(title, f"At {username}")
-else:
+elif os.name == 'posix':
     def notify(title, message):
         os.system(f"""
             osascript -e 'display notification {message} with title {title}'
